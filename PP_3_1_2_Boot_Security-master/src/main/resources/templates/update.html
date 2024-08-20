@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Update User</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <form th:action="@{/admin/user/{id}(id=${user.id})}" th:object="${user}" method="post" class="needs-validation" novalidate>
+        <div class="form-group">
+            <label for="username">Username:</label>
+            <input type="text" id="username" th:field="*{username}" class="form-control" required>
+            <div class="invalid-feedback">
+                Please provide a valid username.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="password">Password:</label>
+            <input type="password" id="password" th:field="*{password}" class="form-control" required>
+            <div class="invalid-feedback">
+                Please provide a valid password.
+            </div>
+        </div>
+        <div class="form-group">
+            <label for="email">Email:</label>
+            <input type="text" id="email" th:field="*{email}" class="form-control" required>
+            <div class="invalid-feedback">
+                Please provide a valid email.
+            </div>
+        </div>
+        <div class="form-group">
+            <label>Roles:</label>
+            <div class="form-check" th:each="role : ${roles}">
+                <input type="checkbox" name="roles" th:field="*{roles}" th:value="${role.id}" class="form-check-input" th:checked="${user.roles.contains(role)}">
+                <label th:for="${#ids.prev('roles')}" th:text="${role.name}" class="form-check-label"></label>
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary">Update</button>
+    </form>
+</div>
+
+<!-- Bootstrap JS and dependencies -->
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
