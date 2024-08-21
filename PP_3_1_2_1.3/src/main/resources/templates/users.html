@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>All Users</title>
+
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+</head>
+<body>
+<div class="container mt-5">
+    <table class="table table-bordered table-striped">
+        <thead class="thead-dark">
+        <tr>
+            <th>Id</th>
+            <th>Name</th>
+            <th>Email</th>
+            <th>Role</th>
+            <th>Edit</th>
+            <th>Delete</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="user : ${users}">
+            <td><p th:text="${user.getId()}"></p></td>
+            <td><a th:href="@{/admin/user(id=${user.getId()})}" th:text="${user.getUsername()}"></a></td>
+            <td><p th:text="${user.getEmail()}"></p></td>
+            <td><p th:text="${user.roles}"></p></td>
+            <td>
+                <a th:href="@{/admin/edit(id=${user.getId()})}" class="btn btn-primary">Edit</a>
+            </td>
+            <td>
+                <form th:action="@{/admin/delete(id=${user.getId()})}" method="post">
+                    <button type="submit" class="btn btn-danger">Delete</button>
+                </form>
+            </td>
+        </tr>
+        </tbody>
+    </table>
+    <br/>
+    <a th:href="@{/admin/new}" class="btn btn-success btn-lg">Add user</a>
+    <br/><br/>
+    <a th:href="@{/logout}" class="btn btn-danger btn-lg">Logout</a>
+</div>
+
+
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+<script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
